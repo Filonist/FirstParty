@@ -6,13 +6,9 @@ import time # для создания задержек
 import getpass # для получения юзернейма пользователя компа
 from selenium import webdriver # для выполнения действий в хроме для разработчика
 from selenium.webdriver.common.by import By # для нахождения элементов по какому-то объекту
-<<<<<<< HEAD
 import getpass
 
 username = getpass.getuser()
-=======
-
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
 
 def winrar():
     try:
@@ -23,11 +19,7 @@ def winrar():
         program = requests.get(f'https://www.win-rar.com{data}').content
         program_name = data.split('/')[-1]
         
-<<<<<<< HEAD
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
@@ -44,11 +36,7 @@ def python():
         program_name = data.split('/')[-1]   
         program = requests.get(f'{data}').content
 
-<<<<<<< HEAD
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
@@ -61,11 +49,7 @@ def chrome():
         program_name = link.split('/')[-1]   
         program = requests.get(f'{link}').content
 
-<<<<<<< HEAD
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
@@ -88,7 +72,6 @@ def chrome_install():
 
 def yandex():
     try:
-<<<<<<< HEAD
        
         link = "https://yandex.ru/soft/browsers/"
         response = requests.get(f'{link}')
@@ -98,26 +81,10 @@ def yandex():
         program = requests.get(f'{full_data}').content
         program_name = 'Yandex.exe'
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        user = fake_useragent.UserAgent().random
-        header = {'user-agent': user}
-        
-        link = "https://yandex.ru/soft/browsers/"
-        response = requests.get(f'{link}', headers= header)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        data = soup.find('div', class_ = 'lc-button-list__container')
-        full_data = data.find('a', class_ = 'Link link lc-link lc-button lc-button_theme_shadow lc-button_size_xl lc-button_type_link lc-button-list__item').get('href')
-
-        program = requests.get(f'{full_data}', headers= header).content
-        program_name = 'Yandex.exe'
-     
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
     except:
-<<<<<<< HEAD
 
             try:
                 chromeOptions = webdriver.ChromeOptions()
@@ -156,30 +123,10 @@ def YaDisk():
         program_name = full_data.split('/')[-2]
      
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        return 'Yandex not installed'
-
-
-def YaDisk():
-    try:
-        user = fake_useragent.UserAgent().random
-        header = {'user-agent': user}
-        
-        link = "https://360.yandex.ru/disk/download/"
-        response = requests.get(f'{link}', headers= header)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        data = soup.find('div', class_ = 'Content_1iEBKla_97HVaE9tuQYp3q')
-        full_data = data.find('a', class_ = 'Button2 Button2_type_link Button2_size_xxl Button2_view_brand Button_1fq4euQWK_3ti9Eq-ofaPf').get('href')
-        program = requests.get(f'{full_data}', headers= header).content
-        program_name = full_data.split('/')[-2]
-     
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
     except:
-<<<<<<< HEAD
 
             try:
                 chromeOptions = webdriver.ChromeOptions()
@@ -212,27 +159,11 @@ def telegram():
         
         link = "https://desktop.telegram.org/?setln=ru"
         response = requests.get(f'{link}')
-=======
-        return 'YaDisk not installed'
-
-def telegram():
-    try:
-        user = fake_useragent.UserAgent().random
-        header = {'user-agent': user}
-        program_name = 'Telegram.exe'
-        
-        link = "https://desktop.telegram.org/?setln=ru"
-        response = requests.get(f'{link}', headers= header)
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
         soup = BeautifulSoup(response.text, 'html.parser')
         full_data = soup.find('a', class_ = 'td_download_btn').get('href')
         program = requests.get(f'https:{full_data}').content
      
-<<<<<<< HEAD
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
@@ -257,11 +188,7 @@ def KeePass():
         program = requests.get(f'{data1}').content
 
 
-<<<<<<< HEAD
         with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-=======
-        with open(f'C:\\Users\\Vitalina\\Downloads\\{program_name}', 'wb') as file:
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
             file.write(program)
         
         return f'{program_name} has been downloaded'
@@ -328,7 +255,6 @@ def kasper():
 
 if __name__ == '__main__':
     print('======================================')
-<<<<<<< HEAD
     print(chrome()) # Скачивание установщика Chrome +
     print(winrar()) # Скачивание установщика WinRar +
     print(python()) # Скачивание установщика Python  +
@@ -340,16 +266,3 @@ if __name__ == '__main__':
     print(kasper()) # Скачивание установщика Kaspersky Free +
     print(chrome_install()) # Установка Chrome
     print('======================================')
-=======
-    print(chrome()) # Скачивание установщика Chrome
- #   print(chrome_install()) # Установка Chrome
-    print(winrar()) # Скачивание установщика WinRar
-    print(python()) # Скачивание установщика Python 
-    print(yandex()) # Скачивание установщика Yandex
-    print(YaDisk()) # Скачивание установщика YaDisk
-    print(telegram()) # Скачивание установщика Telegram
-    print(KeePass()) # Скачивание установщика KeePass
-    print(VSCode()) # Скачивание установщика VSCode
-    print(kasper()) # Скачивание установщика Kaspersky Free
-    print('======================================')
->>>>>>> 951371da3fffe4c38c26aaf4c962e5e7d09aaea2
