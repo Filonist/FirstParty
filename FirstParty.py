@@ -264,6 +264,7 @@ def VMWare():
 
 
 def chrome_install(direct):
+    
     try:
         if not search('google'):
             subprocess.Popen(fr"{direct} /silent /install")
@@ -272,7 +273,7 @@ def chrome_install(direct):
             while cher == 0:
                 if not search('google'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(15)
                     cher = 0
                 else:
                     print('Установлено')
@@ -318,7 +319,7 @@ def python_install(direct):
             while cher == 0:
                 if not search('python'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(15)
                     cher = 0
                 else:
                     print('Установлено')
@@ -333,6 +334,7 @@ def python_install(direct):
         
  
 def keepass_install(direct):
+
     try:
         if not search('keepass'):
             subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART")
@@ -354,6 +356,7 @@ def keepass_install(direct):
         print('Keepass install is not finished')            
         
 def kaspersky_install(direct):
+
     try:
         if not search('kasper'):
             subprocess.Popen(fr"{direct} /s /qn")
@@ -362,7 +365,7 @@ def kaspersky_install(direct):
             while cher == 0:
                 if not search('kasper'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(30)
                     cher = 0
                 else:
                     print('Установлено')
@@ -375,6 +378,7 @@ def kaspersky_install(direct):
         print('Kaspsersky install is not finished')  
         
 def vmware_install(direct):
+    print("Установка VMware")
     try:
         if not search('vmware'):
             subprocess.Popen(fr"{direct}")
@@ -392,10 +396,102 @@ def vmware_install(direct):
                     time.sleep(6)
                     break
         else:
-            print('VMWare уже становлен')
+            print('VMWare уже установлен')
     except:
-        print('VMWare install is not finished')         
+        print('VMWare install is not finished')     
+        
+        
+def yandex_install(direct):
+    print('Установка Yandex')
+    directory = f'C:\\Users\\{username}\\AppData\\Local\\Yandex\\YandexBrowser\\Application'
+    try:
+        files = os.listdir(directory)
+        print('Yandex уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} --silent --do-not-launch-browser")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('Yandex почти установлен')
+                time.sleep(60)
+                print('Yandex установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
 
+
+def yadisk_install(direct):
+    print('Установка Yandex Disk')
+    directory = f'C:\\Users\\{username}\\AppData\\Roaming\\Yandex\\YandexDisk2\\'
+
+    try:
+        files = os.listdir(directory)
+        full_directory = (f'{directory}{files[0]}')
+        underfules = os.listdir(full_directory)
+        print('Yandex Disk уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} /S")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('Yandex Disk почти установлен')
+                time.sleep(60)
+                print('Yandex Disk установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+
+def telegram_install(direct):
+    print('Установка Telegram')
+    directory = f'C:\\Users\\{username}\\AppData\\Roaming\\Telegram Desktop'
+    try:
+        files = os.listdir(directory)
+        print('Telegram уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('Telegram почти установлен')
+                time.sleep(30)
+                print('Telegram установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+def vscode_install(direct):
+    print('Установка VSCode')
+    directory = f'C:\\Users\\{username}\\AppData\\Local\\Programs\\Microsoft VS Code'
+    try:
+        files = os.listdir(directory)
+        print('VSCode уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} /VERYSILENT")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('VSCode почти установлен')
+                time.sleep(30)
+                print('VSCode установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+ 
+            
 
 def filename(name):
 
@@ -437,5 +533,9 @@ if __name__ == '__main__':
     keepass_install(filename('KeePass')) # Установка KeePass
     kaspersky_install(filename('kasper')) # Установка Kaspersky
     vmware_install(filename('VMware')) # Установка VMware
+    yandex_install(filename('Yandex.exe')) # Установка Yandex
+    yadisk_install(filename('YandexDisk')) # Установка Yandex Disk
+    telegram_install(filename('Telegram')) # Установка Telegram
+    vscode_install(filename('VSCode')) # Установка VSCode
     input("END")
     print('======================================')
