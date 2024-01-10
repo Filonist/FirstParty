@@ -7,6 +7,10 @@ import getpass # для получения юзернейма пользоват
 from selenium import webdriver # для выполнения действий в хроме для разработчика
 from selenium.webdriver.common.by import By # для нахождения элементов по какому-то объекту
 import getpass
+import random
+import os
+from pathlib import Path
+import winapps
 
 username = getpass.getuser()
 
@@ -57,34 +61,25 @@ def chrome():
         return 'Google Chrome not installed'
     
     
-def chrome_install():
-    try:
-        username = getpass.getuser()
-        subprocess.Popen(fr"C:\Users\{username}\Downloads\chrome_installer.exe /silent /install")
-        print("Установка")
-
-        time.sleep(5)
-    except:
-        print('Install is not finished')
-        a = input()
-
 
 
 def yandex():
-    try:
-       
-        link = "https://yandex.ru/soft/browsers/"
-        response = requests.get(f'{link}')
-        soup = BeautifulSoup(response.text, 'html.parser')
-        data = soup.find('div', class_ = 'lc-button-list__container')
-        full_data = data.find('a', class_ = 'Link link lc-link lc-button lc-button_theme_shadow lc-button_size_xl lc-button_type_link lc-button-list__item').get('href')
-        program = requests.get(f'{full_data}').content
-        program_name = 'Yandex.exe'
-        with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
-            file.write(program)
+    # try:
+    #     spisok = ['Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0']
+    #     header = {'User-Agent':random.choice(spisok)}
+    #     link = "https://yandex.ru/soft/browsers/"
+    #     response = requests.get(f'{link}',headers=header)
+    #     soup = BeautifulSoup(response.text, 'html.parser')
+    #     data = soup.find('div', class_ = 'lc-button-list__container')
+    #     full_data = data.find('a', class_ = 'Link link lc-link lc-button lc-button_theme_shadow lc-button_size_xl lc-button_type_link lc-button-list__item').get('href')
+    #     program = requests.get(f'{full_data}',headers=header).content
+    #     program_name = 'Yandex.exe'
+    #     with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
+    #         file.write(program)
         
-        return f'{program_name} has been downloaded'
-    except:
+    #     return f'{program_name} has been downloaded'
+    # except:
+    #     print('Yandex not installed')
 
             try:
                 chromeOptions = webdriver.ChromeOptions()
@@ -247,12 +242,183 @@ def kasper():
     except:
         print('Kaspersky Free not installed')
 
+def VMWare():
+    
+    try:
+        spisok = ['Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0']
+        header = {'User-Agent':random.choice(spisok)}
+        link = "https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html"
+        response = requests.get(f'{link}',headers=header)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        data = soup.find('div', class_ = 'card-box shadow textcard bg-white height text-gray').find('a', class_ = 'linkdisplay mb-2 plain-text').get('href')
+        program = requests.get(f'https://www.vmware.com{data}',headers= header).content
+
+        program_name = 'VMware Workstation.exe'
+        
+        with open(f'C:\\Users\\{username}\\Downloads\\{program_name}', 'wb') as file:
+            file.write(program)
+        
+        return f'{program_name} has been downloaded'
+    except:
+        return 'VMware Workstation not installed'
+
+
+def chrome_install(direct):
+    try:
+        if not search('google'):
+            subprocess.Popen(fr"{direct} /silent /install")
+            print("Установка Google")
+            cher = 0
+            while cher == 0:
+                if not search('google'):
+                    print('Идёт установка...')
+                    time.sleep(5)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Google уже установлен')
+    except:
+        print('Google install is not finished')
 
 
 
 
+def winrar_install(direct):
+    try:
+        if not search('winrar'):
+            subprocess.Popen(fr"{direct} /S")
+            print("Установка WinRar")
+            cher = 0
+            while cher == 0:
+                if not search('winrar'):
+                    print('Идёт установка...')
+                    time.sleep(5)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('WinRar уже становлен')
+    except:
+        print('WinRar install is not finished')
+
+     
+def python_install(direct):
+    try:
+        if not search('python'):
+            subprocess.Popen(fr"{direct}")
+            print("Установка Python")
+            cher = 0
+            while cher == 0:
+                if not search('python'):
+                    print('Идёт установка...')
+                    time.sleep(5)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Python уже становлен')
+    except:
+        print('Python install is not finished')
+     
+        
+ 
+def keepass_install(direct):
+    try:
+        if not search('keepass'):
+            subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART")
+            print("Установка Keepass")
+            cher = 0
+            while cher == 0:
+                if not search('keepass'):
+                    print('Идёт установка...')
+                    time.sleep(5)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Keepass уже становлен')
+    except:
+        print('Keepass install is not finished')            
+        
+def kaspersky_install(direct):
+    try:
+        if not search('kasper'):
+            subprocess.Popen(fr"{direct} /s /qn")
+            print("Установка Kaspsersky")
+            cher = 0
+            while cher == 0:
+                if not search('kasper'):
+                    print('Идёт установка...')
+                    time.sleep(5)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Kaspsersky уже становлен')
+    except:
+        print('Kaspsersky install is not finished')  
+        
+def vmware_install(direct):
+    try:
+        if not search('vmware'):
+            subprocess.Popen(fr"{direct}")
+            print(direct)
+            print("Установка VMWare")
+            cher = 0
+            while cher == 0:
+                if not search('vmware'):
+                    print('Идёт установка...')
+                    time.sleep(5)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('VMWare уже становлен')
+    except:
+        print('VMWare install is not finished')         
 
 
+def filename(name):
+
+    directory = (f'C:\\Users\\{username}\\Downloads\\')
+    files = os.listdir(directory)
+    for i in range(len(files)):
+        if files[i].startswith(name) == True:
+            path = directory+ files[i]
+            break
+    return path
+              
+           
+def search(name):
+    for app in winapps.search_installed(name):
+        return app
+
+        
+        
+        
+        
+        
+        
+        
 if __name__ == '__main__':
     print('======================================')
     print(chrome()) # Скачивание установщика Chrome +
@@ -264,5 +430,12 @@ if __name__ == '__main__':
     print(YaDisk()) # Скачивание установщика YaDisk 
     print(VSCode()) # Скачивание установщика VSCode +
     print(kasper()) # Скачивание установщика Kaspersky Free +
-    print(chrome_install()) # Установка Chrome
+    print(VMWare()) # Скачивание установщика VMWare Workstation
+    chrome_install(filename('chrome')) # Установка Google
+    winrar_install(filename('winrar')) # Установка WinRar   
+    python_install(filename('python')) # Установка Python
+    keepass_install(filename('KeePass')) # Установка KeePass
+    kaspersky_install(filename('kasper')) # Установка Kaspersky
+    vmware_install(filename('VMware')) # Установка VMware
+    input("END")
     print('======================================')
