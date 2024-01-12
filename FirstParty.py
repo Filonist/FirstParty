@@ -11,6 +11,7 @@ import random
 import os
 from pathlib import Path
 import winapps
+import pyzipper  
 
 username = getpass.getuser()
 
@@ -382,7 +383,6 @@ def vmware_install(direct):
     try:
         if not search('vmware'):
             subprocess.Popen(fr"{direct}")
-            print(direct)
             print("Установка VMWare")
             cher = 0
             while cher == 0:
@@ -490,7 +490,32 @@ def vscode_install(direct):
                 time.sleep(10)
                 selector = 0
 
- 
+
+
+def office_install(direct):
+    print("Установка Office")
+    try:
+        if not search('office'):
+            subprocess.Popen(fr"{direct} -aiS -gm2")
+            print(direct)
+            print("Установка Office")
+            cher = 0
+            while cher == 0:
+                if not search('office'):
+                    print('Идёт установка...')
+                    time.sleep(60)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    subprocess.run(['powershell.exe', 'irm https://massgrave.dev/get | iex'])
+                    break
+        else:
+            print('Office уже установлен')
+    except:
+        print('Office install is not finished')     
+
             
 
 def filename(name):
@@ -509,14 +534,30 @@ def search(name):
         return app
 
         
+def decrypt(file_path, word):
+    descrypt_path = f'C:\\Users\\{username}\\Downloads\\'
+    with pyzipper.AESZipFile(file_path, 'r', compression=pyzipper.ZIP_LZMA, encryption=pyzipper.WZ_AES) \
+            as extracted_zip:
+        try:
+            extracted_zip.extractall(pwd=word, path=descrypt_path)
+        except RuntimeError as ex:
+            print(ex)        
         
         
-        
-        
+print('''================================================================================================================
+********  ***  ********   *******  *************     *********  ***********  ********  *************  **      **
+********  ***  **    **  ********  *************     *********  ***********  **    **  *************  **      **
+**             **    **  **             ***          **     **  **       **  **    **       ***       **      **
+********  ***  *******   *******        ***          *********  **       **  *******        ***       **********
+********  ***  ** ****   ********       ***          *********  ***********  *******        ***        *********
+**        ***  **    **        **       ***          **         ***********  **    **       ***               **
+**        ***  **    **  ********       ***          **         **       **  **    **       ***       **********       
+**        ***  **    **  ********       ***          **         **       **  **    **       ***       **********      
+================================================================================================================''')        
         
         
 if __name__ == '__main__':
-    print('======================================')
+    print(' ')
     print(chrome()) # Скачивание установщика Chrome +
     print(winrar()) # Скачивание установщика WinRar +
     print(python()) # Скачивание установщика Python  +
@@ -537,5 +578,6 @@ if __name__ == '__main__':
     yadisk_install(filename('YandexDisk')) # Установка Yandex Disk
     telegram_install(filename('Telegram')) # Установка Telegram
     vscode_install(filename('VSCode')) # Установка VSCode
+    office_install(filename('Office')) # Установка Office, активация Office и Win
     input("END")
     print('======================================')
