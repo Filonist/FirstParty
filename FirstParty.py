@@ -14,6 +14,9 @@ import winapps
 import pyzipper  
 
 username = getpass.getuser()
+program_directory = input('Директория, куда устанавливать приложения: ')
+program_directory = program_directory.replace('"', '')
+
 
 def winrar():
     try:
@@ -497,7 +500,6 @@ def office_install(direct):
     try:
         if not search('office'):
             subprocess.Popen(fr"{direct} -aiS -gm2")
-            print(direct)
             print("Установка Office")
             cher = 0
             while cher == 0:
@@ -516,7 +518,62 @@ def office_install(direct):
     except:
         print('Office install is not finished')     
 
-            
+def photoshop_install(direct):
+    print("Установка Photoshop")
+    try:
+        if not search('photoshop'):
+            decrypt(direct, b'111')
+            new_direct = direct[0:-9] + '.exe'
+            os.mkdir(program_directory +'\\' + 'Photoshop')
+            install_path = (program_directory + '\\' + 'Photoshop')
+            subprocess.Popen(fr"{new_direct} -S /XPATH={install_path} /XVCR")
+            print("Установка Photoshop")
+            cher = 0
+            while cher == 0:
+                if not search('Photoshop'):
+                    print('Идёт установка...')
+                    time.sleep(30)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Photoshop уже установлен')
+    except:
+        print('Photoshop install is not finished')    
+    
+        
+def audition_install(direct):
+    print("Установка Audition")
+    try:
+        if not search('audition'):
+            decrypt(direct, b'111')
+            new_direct = direct[0:-9] + '.exe'
+            os.mkdir(program_directory +'\\' + 'Audition')
+            install_path = (program_directory + '\\' + 'Audition')
+            subprocess.Popen(fr"{new_direct} -S /XPATH={install_path} /XDISABLENET=1 /XVCR")
+            print("Установка Audition")
+            cher = 0
+            while cher == 0:
+                if not search('audition'):
+                    print('Идёт установка...')
+                    time.sleep(30)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Audition уже установлен')
+    except:
+        print('Audition install is not finished')             
+
+
+
+
 
 def filename(name):
 
@@ -578,6 +635,21 @@ if __name__ == '__main__':
     yadisk_install(filename('YandexDisk')) # Установка Yandex Disk
     telegram_install(filename('Telegram')) # Установка Telegram
     vscode_install(filename('VSCode')) # Установка VSCode
-    office_install(filename('Office')) # Установка Office, активация Office и Win
+
+    print('''=============================================================================
+1. Отключите антивирус
+2. Закиньте установщики в папку Загрузки (Office, Photoshop, Audition, Дрова)
+=============================================================================
+# ''')
+    while True:
+        answer = input('Готово? [y/n]:')
+        if (answer == 'у' or answer == 'y'):
+            office_install(filename('Office'))
+            photoshop_install(filename('Adobe Ph'))
+            audition_install(filename('Adobe Audi'))
+            break
+        else:
+            print('правила')
+
     input("END")
     print('======================================')
