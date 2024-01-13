@@ -11,8 +11,12 @@ import random
 import os
 from pathlib import Path
 import winapps
+import pyzipper  
 
 username = getpass.getuser()
+program_directory = input('Директория, куда устанавливать приложения: ')
+program_directory = program_directory.replace('"', '')
+
 
 def winrar():
     try:
@@ -243,7 +247,7 @@ def kasper():
         print('Kaspersky Free not installed')
 
 def VMWare():
-    
+    print('VMWare is installing...')
     try:
         spisok = ['Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0']
         header = {'User-Agent':random.choice(spisok)}
@@ -264,15 +268,15 @@ def VMWare():
 
 
 def chrome_install(direct):
+    print("Установка Google")
     try:
         if not search('google'):
             subprocess.Popen(fr"{direct} /silent /install")
-            print("Установка Google")
             cher = 0
             while cher == 0:
                 if not search('google'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(40)
                     cher = 0
                 else:
                     print('Установлено')
@@ -288,10 +292,12 @@ def chrome_install(direct):
 
 
 def winrar_install(direct):
+    print("Установка WinRar")
     try:
         if not search('winrar'):
-            subprocess.Popen(fr"{direct} /S")
-            print("Установка WinRar")
+            os.mkdir(program_directory +'\\' + 'WinRar')
+            install_path = (program_directory + '\\' + 'WinRar')
+            subprocess.Popen(fr"{direct} /S /D{install_path}")
             cher = 0
             while cher == 0:
                 if not search('winrar'):
@@ -310,15 +316,15 @@ def winrar_install(direct):
 
      
 def python_install(direct):
+    print("Установка Python")
     try:
         if not search('python'):
             subprocess.Popen(fr"{direct}")
-            print("Установка Python")
             cher = 0
             while cher == 0:
                 if not search('python'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(30)
                     cher = 0
                 else:
                     print('Установлено')
@@ -333,10 +339,12 @@ def python_install(direct):
         
  
 def keepass_install(direct):
+    print("Установка Keepass")
     try:
         if not search('keepass'):
-            subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART")
-            print("Установка Keepass")
+            os.mkdir(program_directory +'\\' + 'KeePass')
+            install_path = (program_directory + '\\' + 'KeePass')
+            subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART /DIR={install_path}")
             cher = 0
             while cher == 0:
                 if not search('keepass'):
@@ -354,15 +362,15 @@ def keepass_install(direct):
         print('Keepass install is not finished')            
         
 def kaspersky_install(direct):
+    print("Установка Kaspsersky")
     try:
         if not search('kasper'):
             subprocess.Popen(fr"{direct} /s /qn")
-            print("Установка Kaspsersky")
             cher = 0
             while cher == 0:
                 if not search('kasper'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(60)
                     cher = 0
                 else:
                     print('Установлено')
@@ -375,16 +383,17 @@ def kaspersky_install(direct):
         print('Kaspsersky install is not finished')  
         
 def vmware_install(direct):
+    print("Установка VMware")
     try:
         if not search('vmware'):
-            subprocess.Popen(fr"{direct}")
-            print(direct)
-            print("Установка VMWare")
+            os.mkdir(program_directory +'\\' + 'VMware')
+            install_path = (program_directory + '\\' + 'VMware')
+            subprocess.Popen(fr"{direct} /v/qn /a {install_path}")
             cher = 0
             while cher == 0:
                 if not search('vmware'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(30)
                     cher = 0
                 else:
                     print('Установлено')
@@ -392,9 +401,299 @@ def vmware_install(direct):
                     time.sleep(6)
                     break
         else:
-            print('VMWare уже становлен')
+            print('VMWare уже установлен')
     except:
-        print('VMWare install is not finished')         
+        print('VMWare install is not finished')     
+        
+        
+def yandex_install(direct):
+    print('Установка Yandex')
+    directory = f'C:\\Users\\{username}\\AppData\\Local\\Yandex\\YandexBrowser\\Application'
+    try:
+        files = os.listdir(directory)
+        print('Yandex уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} --silent --do-not-launch-browser")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('Yandex почти установлен')
+                time.sleep(60)
+                print('Yandex установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+
+def yadisk_install(direct):
+    print('Установка Yandex Disk')
+    directory = f'C:\\Users\\{username}\\AppData\\Roaming\\Yandex\\YandexDisk2\\'
+
+    try:
+        files = os.listdir(directory)
+        full_directory = (f'{directory}{files[0]}')
+        underfules = os.listdir(full_directory)
+        print('Yandex Disk уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} /S")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('Yandex Disk почти установлен')
+                time.sleep(60)
+                print('Yandex Disk установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+
+def telegram_install(direct):
+    print('Установка Telegram')
+    directory = f'C:\\Users\\{username}\\AppData\\Roaming\\Telegram Desktop'
+    try:
+        files = os.listdir(directory)
+        print('Telegram уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('Telegram почти установлен')
+                time.sleep(30)
+                print('Telegram установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+def vscode_install(direct):
+    print('Установка VSCode')
+    directory = f'C:\\Users\\{username}\\AppData\\Local\\Programs\\Microsoft VS Code'
+    try:
+        files = os.listdir(directory)
+        print('VSCode уже установлен')
+    except:
+        subprocess.Popen(fr"{direct} /VERYSILENT")
+        selector = 0
+        while selector == 0:
+            try:
+                files = os.listdir(directory)
+                print('VSCode почти установлен')
+                time.sleep(30)
+                print('VSCode установлен')
+                selector = 1
+            except:
+                print("Идёт установка...")
+                time.sleep(10)
+                selector = 0
+
+
+
+def office_install(direct):
+    print("Установка Office")
+    try:
+        if not search('office'):
+            subprocess.Popen(fr"{direct} -aiS -gm2")
+            cher = 0
+            while cher == 0:
+                if not search('office'):
+                    print('Идёт установка...')
+                    time.sleep(60)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    subprocess.run(['powershell.exe', 'irm https://massgrave.dev/get | iex'])
+                    break
+        else:
+            print('Office уже установлен')
+    except:
+        print('Office install is not finished')     
+
+def photoshop_install(direct):
+    print("Установка Photoshop")
+    try:
+        if not search('photoshop'):
+            decrypt(direct, b'111')
+            new_direct = direct[0:-9] + '.exe'
+            os.mkdir(program_directory +'\\' + 'Photoshop')
+            install_path = (program_directory + '\\' + 'Photoshop')
+            subprocess.Popen(fr"{new_direct} -S /XPATH={install_path} /XVCR")
+            cher = 0
+            while cher == 0:
+                if not search('Photoshop'):
+                    print('Идёт установка...')
+                    time.sleep(90)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Photoshop уже установлен')
+    except:
+        print('Photoshop install is not finished')    
+    
+        
+def audition_install(direct):
+    print("Установка Audition")
+    try:
+        if not search('audition'):
+            decrypt(direct, b'111')
+            new_direct = direct[0:-9] + '.exe'
+            os.mkdir(program_directory +'\\' + 'Audition')
+            install_path = (program_directory + '\\' + 'Audition')
+            subprocess.Popen(fr"{new_direct} -S /XPATH={install_path} /XDISABLENET=1 /XVCR")
+            cher = 0
+            while cher == 0:
+                if not search('audition'):
+                    print('Идёт установка...')
+                    time.sleep(90)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Audition уже установлен')
+    except:
+        print('Audition install is not finished')             
+
+
+
+
+def aida_install(direct):
+    print("Установка Aida64")
+    try:
+        if not search('aida'):
+            os.mkdir(program_directory +'\\' + 'Aida64')
+            install_path = (program_directory + '\\' + 'Aida64')
+            subprocess.Popen(fr"{direct} /SILENT /DIR={install_path}")
+            cher = 0
+            while cher == 0:
+                if not search('aida'):
+                    print('Идёт установка...')
+                    time.sleep(13)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Aida64 уже установлен')
+    except:
+        print('Aida64 install is not finished')     
+
+
+
+
+def intel_ME_install(direct):
+    full_direct = direct + '\\Intel_ME_Update_Tool_ME118H\\ME118H\\SetupME.exe'
+    print("Установка INTEL ME")
+    try:
+        if not search('Management'):
+            subprocess.Popen(fr"{full_direct} /s")
+            cher = 0
+            while cher == 0:
+                if not search('Management'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('INTEL ME уже установлен')
+    except:
+        print('INTEL ME install is not finished')  
+
+
+def chipset_install(direct):
+    print("Установка Chipset driver")
+    full_direct = direct + '\\server_driver_chipset_intel_10.1.18010.8141\\intel_chipset_win_10.1.18010.8141_PV\\SetupChipset.exe'
+    try:
+        if not search('Management'):
+            subprocess.Popen(fr"{full_direct} /s")
+            cher = 0
+            while cher == 0:
+                if not search('Management'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Chipset driver уже установлен')
+    except:
+        print('Chipset driver install is not finished')  
+       
+
+
+def smart_connect_install(direct):
+    print("Установка Intel Smart Connect")
+    full_direct = direct + '\\Intel(R) Smart Connect Technology 5.0.exe'
+    try:
+        if not search('smart'):
+            subprocess.Popen(fr"{direct} /Q")
+            cher = 0
+            while cher == 0:
+                if not search('smart'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Intel Smart Connect уже установлен')
+    except:
+        print('Intel Smart Connect install is not finished')    
+
+
+def radeon_install(direct):
+    print("Установка Radeon")
+    full_direct = direct + '\\win10-radeon-pro-software-enterprise-21.q1.2.exe'
+    try:
+        if not search('amd'):
+            subprocess.Popen(fr"{direct} /S")
+            cher = 0
+            while cher == 0:
+                if not search('amd'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Radeon уже установлен')
+    except:
+        print('Radeon install is not finished')
+
+
+
+
 
 
 def filename(name):
@@ -413,14 +712,30 @@ def search(name):
         return app
 
         
+def decrypt(file_path, word):
+    descrypt_path = f'C:\\Users\\{username}\\Downloads\\'
+    with pyzipper.AESZipFile(file_path, 'r', compression=pyzipper.ZIP_LZMA, encryption=pyzipper.WZ_AES) \
+            as extracted_zip:
+        try:
+            extracted_zip.extractall(pwd=word, path=descrypt_path)
+        except RuntimeError as ex:
+            print(ex)        
         
         
-        
-        
+print('''================================================================================================================
+********  ***  ********   *******  *************     *********  ***********  ********  *************  **      **
+********  ***  **    **  ********  *************     *********  ***********  **    **  *************  **      **
+**             **    **  **             ***          **     **  **       **  **    **       ***       **      **
+********  ***  *******   *******        ***          *********  **       **  *******        ***       **********
+********  ***  ** ****   ********       ***          *********  ***********  *******        ***        *********
+**        ***  **    **        **       ***          **         ***********  **    **       ***               **
+**        ***  **    **  ********       ***          **         **       **  **    **       ***       **********       
+**        ***  **    **  ********       ***          **         **       **  **    **       ***       **********      
+================================================================================================================''')        
         
         
 if __name__ == '__main__':
-    print('======================================')
+    print(' ')
     print(chrome()) # Скачивание установщика Chrome +
     print(winrar()) # Скачивание установщика WinRar +
     print(python()) # Скачивание установщика Python  +
@@ -437,5 +752,30 @@ if __name__ == '__main__':
     keepass_install(filename('KeePass')) # Установка KeePass
     kaspersky_install(filename('kasper')) # Установка Kaspersky
     vmware_install(filename('VMware')) # Установка VMware
+    yandex_install(filename('Yandex.exe')) # Установка Yandex
+    yadisk_install(filename('YandexDisk')) # Установка Yandex Disk
+    telegram_install(filename('Telegram')) # Установка Telegram
+    vscode_install(filename('VSCode')) # Установка VSCode
+
+    print('''=============================================================================
+1. Отключите антивирус
+2. Закиньте установщики в папку Загрузки (Office, Photoshop, Audition, Дрова)
+=============================================================================
+# ''')
+    while True:
+        answer = input('Готово? [y/n]:')
+        if (answer == 'у' or answer == 'y'):
+            office_install(filename('Office'))
+            photoshop_install(filename('Adobe Ph'))
+            audition_install(filename('Adobe Audi'))
+            aida_install(filename('aida'))
+            intel_ME_install(filename('Дрова'))
+            chipset_install(filename('Дрова'))
+            smart_connect_install(filename('Дрова'))
+            radeon_install(filename('Дрова'))
+            break
+        else:
+            print('правила')
+
     input("END")
     print('======================================')
