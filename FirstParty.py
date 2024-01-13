@@ -247,7 +247,7 @@ def kasper():
         print('Kaspersky Free not installed')
 
 def VMWare():
-    
+    print('VMWare is installing...')
     try:
         spisok = ['Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0']
         header = {'User-Agent':random.choice(spisok)}
@@ -268,16 +268,15 @@ def VMWare():
 
 
 def chrome_install(direct):
-    
+    print("Установка Google")
     try:
         if not search('google'):
             subprocess.Popen(fr"{direct} /silent /install")
-            print("Установка Google")
             cher = 0
             while cher == 0:
                 if not search('google'):
                     print('Идёт установка...')
-                    time.sleep(15)
+                    time.sleep(40)
                     cher = 0
                 else:
                     print('Установлено')
@@ -293,10 +292,12 @@ def chrome_install(direct):
 
 
 def winrar_install(direct):
+    print("Установка WinRar")
     try:
         if not search('winrar'):
-            subprocess.Popen(fr"{direct} /S")
-            print("Установка WinRar")
+            os.mkdir(program_directory +'\\' + 'WinRar')
+            install_path = (program_directory + '\\' + 'WinRar')
+            subprocess.Popen(fr"{direct} /S /D{install_path}")
             cher = 0
             while cher == 0:
                 if not search('winrar'):
@@ -315,15 +316,15 @@ def winrar_install(direct):
 
      
 def python_install(direct):
+    print("Установка Python")
     try:
         if not search('python'):
             subprocess.Popen(fr"{direct}")
-            print("Установка Python")
             cher = 0
             while cher == 0:
                 if not search('python'):
                     print('Идёт установка...')
-                    time.sleep(15)
+                    time.sleep(30)
                     cher = 0
                 else:
                     print('Установлено')
@@ -338,11 +339,12 @@ def python_install(direct):
         
  
 def keepass_install(direct):
-
+    print("Установка Keepass")
     try:
         if not search('keepass'):
-            subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART")
-            print("Установка Keepass")
+            os.mkdir(program_directory +'\\' + 'KeePass')
+            install_path = (program_directory + '\\' + 'KeePass')
+            subprocess.Popen(fr"{direct} /VERYSILENT /NORESTART /DIR={install_path}")
             cher = 0
             while cher == 0:
                 if not search('keepass'):
@@ -360,16 +362,15 @@ def keepass_install(direct):
         print('Keepass install is not finished')            
         
 def kaspersky_install(direct):
-
+    print("Установка Kaspsersky")
     try:
         if not search('kasper'):
             subprocess.Popen(fr"{direct} /s /qn")
-            print("Установка Kaspsersky")
             cher = 0
             while cher == 0:
                 if not search('kasper'):
                     print('Идёт установка...')
-                    time.sleep(30)
+                    time.sleep(60)
                     cher = 0
                 else:
                     print('Установлено')
@@ -385,13 +386,14 @@ def vmware_install(direct):
     print("Установка VMware")
     try:
         if not search('vmware'):
-            subprocess.Popen(fr"{direct}")
-            print("Установка VMWare")
+            os.mkdir(program_directory +'\\' + 'VMware')
+            install_path = (program_directory + '\\' + 'VMware')
+            subprocess.Popen(fr"{direct} /v/qn /a {install_path}")
             cher = 0
             while cher == 0:
                 if not search('vmware'):
                     print('Идёт установка...')
-                    time.sleep(5)
+                    time.sleep(30)
                     cher = 0
                 else:
                     print('Установлено')
@@ -500,7 +502,6 @@ def office_install(direct):
     try:
         if not search('office'):
             subprocess.Popen(fr"{direct} -aiS -gm2")
-            print("Установка Office")
             cher = 0
             while cher == 0:
                 if not search('office'):
@@ -527,12 +528,11 @@ def photoshop_install(direct):
             os.mkdir(program_directory +'\\' + 'Photoshop')
             install_path = (program_directory + '\\' + 'Photoshop')
             subprocess.Popen(fr"{new_direct} -S /XPATH={install_path} /XVCR")
-            print("Установка Photoshop")
             cher = 0
             while cher == 0:
                 if not search('Photoshop'):
                     print('Идёт установка...')
-                    time.sleep(30)
+                    time.sleep(90)
                     cher = 0
                 else:
                     print('Установлено')
@@ -554,12 +554,11 @@ def audition_install(direct):
             os.mkdir(program_directory +'\\' + 'Audition')
             install_path = (program_directory + '\\' + 'Audition')
             subprocess.Popen(fr"{new_direct} -S /XPATH={install_path} /XDISABLENET=1 /XVCR")
-            print("Установка Audition")
             cher = 0
             while cher == 0:
                 if not search('audition'):
                     print('Идёт установка...')
-                    time.sleep(30)
+                    time.sleep(90)
                     cher = 0
                 else:
                     print('Установлено')
@@ -570,6 +569,128 @@ def audition_install(direct):
             print('Audition уже установлен')
     except:
         print('Audition install is not finished')             
+
+
+
+
+def aida_install(direct):
+    print("Установка Aida64")
+    try:
+        if not search('aida'):
+            os.mkdir(program_directory +'\\' + 'Aida64')
+            install_path = (program_directory + '\\' + 'Aida64')
+            subprocess.Popen(fr"{direct} /SILENT /DIR={install_path}")
+            cher = 0
+            while cher == 0:
+                if not search('aida'):
+                    print('Идёт установка...')
+                    time.sleep(13)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Aida64 уже установлен')
+    except:
+        print('Aida64 install is not finished')     
+
+
+
+
+def intel_ME_install(direct):
+    full_direct = direct + '\\Intel_ME_Update_Tool_ME118H\\ME118H\\SetupME.exe'
+    print("Установка INTEL ME")
+    try:
+        if not search('Management'):
+            subprocess.Popen(fr"{full_direct} /s")
+            cher = 0
+            while cher == 0:
+                if not search('Management'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('INTEL ME уже установлен')
+    except:
+        print('INTEL ME install is not finished')  
+
+
+def chipset_install(direct):
+    print("Установка Chipset driver")
+    full_direct = direct + '\\server_driver_chipset_intel_10.1.18010.8141\\intel_chipset_win_10.1.18010.8141_PV\\SetupChipset.exe'
+    try:
+        if not search('Management'):
+            subprocess.Popen(fr"{full_direct} /s")
+            cher = 0
+            while cher == 0:
+                if not search('Management'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Chipset driver уже установлен')
+    except:
+        print('Chipset driver install is not finished')  
+       
+
+
+def smart_connect_install(direct):
+    print("Установка Intel Smart Connect")
+    full_direct = direct + '\\Intel(R) Smart Connect Technology 5.0.exe'
+    try:
+        if not search('smart'):
+            subprocess.Popen(fr"{direct} /Q")
+            cher = 0
+            while cher == 0:
+                if not search('smart'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Intel Smart Connect уже установлен')
+    except:
+        print('Intel Smart Connect install is not finished')    
+
+
+def radeon_install(direct):
+    print("Установка Radeon")
+    full_direct = direct + '\\win10-radeon-pro-software-enterprise-21.q1.2.exe'
+    try:
+        if not search('amd'):
+            subprocess.Popen(fr"{direct} /S")
+            cher = 0
+            while cher == 0:
+                if not search('amd'):
+                    print('Идёт установка...')
+                    time.sleep(10)
+                    cher = 0
+                else:
+                    print('Установлено')
+                    cher = 1
+                    time.sleep(6)
+                    break
+        else:
+            print('Radeon уже установлен')
+    except:
+        print('Radeon install is not finished')
+
 
 
 
@@ -647,6 +768,11 @@ if __name__ == '__main__':
             office_install(filename('Office'))
             photoshop_install(filename('Adobe Ph'))
             audition_install(filename('Adobe Audi'))
+            aida_install(filename('aida'))
+            intel_ME_install(filename('Дрова'))
+            chipset_install(filename('Дрова'))
+            smart_connect_install(filename('Дрова'))
+            radeon_install(filename('Дрова'))
             break
         else:
             print('правила')
